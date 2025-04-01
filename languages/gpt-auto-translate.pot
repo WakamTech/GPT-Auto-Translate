@@ -1,0 +1,248 @@
+# Copyright (C) 2025 BO-VO Digital
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: GPT Auto Translate 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gpt-auto-translate\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-04-02T01:19:24+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: gpt-auto-translate\n"
+
+#. Plugin Name of the plugin
+#: gpt-auto-translate.php
+#: gpt-auto-translate.php:157
+msgid "GPT Auto Translate"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: gpt-auto-translate.php
+msgid "https://github.com/WakamTech/GPT-Auto-Translate"
+msgstr ""
+
+#. Description of the plugin
+#: gpt-auto-translate.php
+msgid "Traduit automatiquement le contenu de WordPress en utilisant l'API GPT et gère les versions linguistiques."
+msgstr ""
+
+#. Author of the plugin
+#: gpt-auto-translate.php
+msgid "BO-VO Digital"
+msgstr ""
+
+#. Author URI of the plugin
+#: gpt-auto-translate.php
+msgid "https://bovo-digital.tech/"
+msgstr ""
+
+#: gpt-auto-translate.php:156
+msgid "GPT Auto Translate Settings"
+msgstr ""
+
+#: gpt-auto-translate.php:184
+msgid "Save Settings"
+msgstr ""
+
+#: gpt-auto-translate.php:206
+msgid "API Settings"
+msgstr ""
+
+#: gpt-auto-translate.php:214
+msgid "GPT API Key"
+msgstr ""
+
+#: gpt-auto-translate.php:223
+msgid "GPT Model"
+msgstr ""
+
+#: gpt-auto-translate.php:232
+msgid "Language Settings"
+msgstr ""
+
+#: gpt-auto-translate.php:240
+msgid "Target Languages"
+msgstr ""
+
+#: gpt-auto-translate.php:249
+msgid "Content Types to Translate"
+msgstr ""
+
+#: gpt-auto-translate.php:260
+msgid "Enter your API key for the GPT service (e.g., OpenAI)."
+msgstr ""
+
+#: gpt-auto-translate.php:278
+msgid "Select the languages you want to translate content into. The source language is assumed to be English."
+msgstr ""
+
+#: gpt-auto-translate.php:305
+msgid "Select the content types where the translation metabox should appear."
+msgstr ""
+
+#: gpt-auto-translate.php:326
+msgid "Translation Status (Source)"
+msgstr ""
+
+#: gpt-auto-translate.php:327
+msgid "GPT Auto Translate Status"
+msgstr ""
+
+#. translators: 1: Language name, 2: Link to edit original post
+#: gpt-auto-translate.php:374
+msgid "This is the %1$s translation of: %2$s."
+msgstr ""
+
+#: gpt-auto-translate.php:379
+msgid "To update all translations, please edit the original English post and use the translate button there."
+msgstr ""
+
+#: gpt-auto-translate.php:384
+msgid "Please select target languages in the plugin settings."
+msgstr ""
+
+#: gpt-auto-translate.php:386
+msgid "Translation Status:"
+msgstr ""
+
+#: gpt-auto-translate.php:399
+msgid "Translated"
+msgstr ""
+
+#: gpt-auto-translate.php:400
+msgid "Edit"
+msgstr ""
+
+#: gpt-auto-translate.php:403
+msgid "Needs Update (Post Missing)"
+msgstr ""
+
+#: gpt-auto-translate.php:407
+msgid "Not Translated"
+msgstr ""
+
+#: gpt-auto-translate.php:418
+msgid "Translate / Update All"
+msgstr ""
+
+#: gpt-auto-translate.php:420
+msgid "Save draft first to enable translation"
+msgstr ""
+
+#: gpt-auto-translate.php:438
+msgid "Spanish"
+msgstr ""
+
+#: gpt-auto-translate.php:439
+msgid "French"
+msgstr ""
+
+#: gpt-auto-translate.php:440
+msgid "German"
+msgstr ""
+
+#: gpt-auto-translate.php:441
+msgid "Russian"
+msgstr ""
+
+#: gpt-auto-translate.php:442
+msgid "Italian"
+msgstr ""
+
+#: gpt-auto-translate.php:443
+msgid "Japanese"
+msgstr ""
+
+#: gpt-auto-translate.php:444
+msgid "Portuguese"
+msgstr ""
+
+#: gpt-auto-translate.php:445
+msgid "Chinese"
+msgstr ""
+
+#: gpt-auto-translate.php:521
+msgid "Settings saved."
+msgstr ""
+
+#: gpt-auto-translate.php:544
+msgid "API Key not configured."
+msgstr ""
+
+#: gpt-auto-translate.php:547
+msgid "No target languages configured."
+msgstr ""
+
+#: gpt-auto-translate.php:555
+msgid "Invalid source post or post not saved yet."
+msgstr ""
+
+#: gpt-auto-translate.php:631
+#: gpt-auto-translate.php:640
+msgid "Updated"
+msgstr ""
+
+#: gpt-auto-translate.php:635
+msgid "Error updating post for %s: %s"
+msgstr ""
+
+#: gpt-auto-translate.php:674
+#: gpt-auto-translate.php:690
+msgid "Created"
+msgstr ""
+
+#: gpt-auto-translate.php:679
+msgid "Error creating post for %s: %s"
+msgstr ""
+
+#: gpt-auto-translate.php:924
+msgid "Translating, please wait..."
+msgstr ""
+
+#: gpt-auto-translate.php:925
+msgid "Translation process completed."
+msgstr ""
+
+#: gpt-auto-translate.php:926
+msgid "An error occurred during translation."
+msgstr ""
+
+#: gpt-auto-translate.php:927
+msgid "Please reload the page to see updated status and edit links."
+msgstr ""
+
+#: gpt-auto-translate.php:945
+msgid "Security check failed."
+msgstr ""
+
+#: gpt-auto-translate.php:950
+msgid "You do not have permission to translate this post."
+msgstr ""
+
+#: gpt-auto-translate.php:969
+msgid "An unexpected error occurred."
+msgstr ""
+
+#: gpt-auto-translate.php:1135
+msgid "Select the GPT model to use for translations. Ensure your API key has access to the selected model."
+msgstr ""
+
+#: gpt-auto-translate.php:1136
+msgid "More powerful models may yield better results but cost more."
+msgstr ""
+
+#: gpt-auto-translate.php:1152
+msgid "Enter the target language codes, separated by commas (e.g., <code>es, fr, de, ru, ja</code>)."
+msgstr ""
+
+#: gpt-auto-translate.php:1153
+msgid "Use standard ISO 639-1 codes."
+msgstr ""
+
+#: gpt-auto-translate.php:1154
+msgid "List of codes"
+msgstr ""
