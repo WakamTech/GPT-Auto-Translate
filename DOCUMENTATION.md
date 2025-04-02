@@ -2,10 +2,10 @@
 
 **Traduit automatiquement votre contenu WordPress en utilisant l'API GPT et gère les versions linguistiques, idéalement avec Polylang.**
 
-*   **Contributeurs:** (votre nom ou pseudo)
+*   **Contributeurs:** BO-VO Digital
 *   **Tags:** translation, multilingual, gpt, openai, automatic translation, polylang, wpml, content translation, ai, auto translate, i18n
 *   **Nécessite au moins:** WordPress 5.5
-*   **Testé jusqu'à:** WordPress 6.4
+*   **Testé jusqu'à:** WordPress 6.7.1
 *   **Nécessite PHP:** 7.4
 *   **Version Stable:** 0.1.0
 *   **Licence:** GPLv2 ou ultérieure
@@ -62,7 +62,7 @@ GPT Auto Translate vous permet d'utiliser la puissance des modèles GPT (comme c
 
 ## Configuration
 
-Après avoir activé le plugin (et préférablement Polylang), naviguez vers **Réglages > GPT Auto Translate**:
+Après avoir activé le plugin (et Polylang), naviguez vers **Réglages > GPT Auto Translate**:
 
 1.  **Clé API GPT (API Key) :** Entrez votre clé API valide fournie par votre service GPT (ex: OpenAI).
 2.  **Modèle GPT (GPT Model) :** Sélectionnez le modèle GPT que vous souhaitez utiliser dans la liste déroulante. Assurez-vous que votre clé API a accès à ce modèle.
@@ -116,18 +116,14 @@ La qualité de la traduction automatique dépend fortement du modèle GPT utilis
 
 ## Screenshots
 
-Ici, vous listeriez ou (mieux) intégreriez vos captures d'écran en utilisant la syntaxe Markdown :
-
-1.  ![Page de Réglages du Plugin](assets/screenshot-1.png)
+1.  ![Page de Réglages du Plugin](assets/screenshot-1.jpg)
     *(Description: Page de Réglages du Plugin montrant les champs pour la Clé API, le Modèle, les Langues, et les Types de Contenu.)*
-2.  ![Meta Box de Traduction](assets/screenshot-2.png)
+2.  ![Meta Box de Traduction](assets/screenshot-2.jpg)
     *(Description: Meta Box de Traduction dans l'Éditeur de Publication, montrant le statut par langue et le bouton de traduction.)*
-3.  ![Exemple de Contenu Traduit](assets/screenshot-3.png)
+3.  ![Exemple de Contenu Traduit](assets/screenshot-3.jpg)
     *(Description: Vue d'un article ou d'une page après traduction automatique.)*
-4.  ![Intégration Polylang](assets/screenshot-4.png)
+4.  ![Intégration Polylang](assets/screenshot-4.jpg)
     *(Description: Exemple montrant comment les publications traduites sont liées dans la boîte de langues Polylang.)*
-
-*(Note: Remplacez `assets/screenshot-*.png` par les chemins réels vers vos images. Le dossier `assets` est une convention souvent utilisée pour les images de documentation dans les dépôts Git.)*
 
 ---
 

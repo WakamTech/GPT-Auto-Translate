@@ -1,8 +1,8 @@
 === GPT Auto Translate ===
-Contributors: (votre nom ou pseudo)
+Contributors: BO-VO Digital
 Tags: translation, multilingual, gpt, openai, automatic translation, polylang, wpml, content translation, ai, auto translate, i18n
 Requires at least: 5.5
-Tested up to: 6.4
+Tested up to: 6.7.1
 Requires PHP: 7.4
 Stable tag: 0.1.0
 License: GPLv2 or later
