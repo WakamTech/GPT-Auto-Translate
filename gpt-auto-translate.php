@@ -99,8 +99,8 @@ final class Gpt_Auto_Translate {
         // Enregistrer le shortcode pour le sélecteur de langue
         // add_shortcode( 'gpt_language_switcher', [ $this, 'render_language_switcher_shortcode' ] );
 
-        // Enregistrement des champs pour l'API REST ****
-        add_action( 'rest_api_init', [ $this, 'setup_rest_api_integration' ] );
+        // Register the fields for the REST API
+        add_action( 'rest_api_init', [ $this, 'register_custom_acf_rest_fields' ] ); // Renamed for clarity
 
         // Charger le text domain pour la traduction
         add_action( 'plugins_loaded', [ $this, 'load_textdomain' ] );
@@ -442,15 +442,189 @@ final class Gpt_Auto_Translate {
     private function get_language_name($code) {
         // Liste basique (peut être étendue)
         $common_names = [
-            'es' => __( 'Spanish', 'gpt-auto-translate' ),
-            'fr' => __( 'French', 'gpt-auto-translate' ),
-            'de' => __( 'German', 'gpt-auto-translate' ),
-            'ru' => __( 'Russian', 'gpt-auto-translate' ),
-            'it' => __( 'Italian', 'gpt-auto-translate' ),
-            'ja' => __( 'Japanese', 'gpt-auto-translate' ),
-            'pt' => __( 'Portuguese', 'gpt-auto-translate' ),
-            'zh' => __( 'Chinese', 'gpt-auto-translate' ),
-            'ar' => __( 'Arabic', 'gpt-auto-translate' ),
+                'ab' => __( 'Abkhazian', 'gpt-auto-translate' ),
+                'aa' => __( 'Afar', 'gpt-auto-translate' ),
+                'af' => __( 'Afrikaans', 'gpt-auto-translate' ),
+                'ak' => __( 'Akan', 'gpt-auto-translate' ),
+                'sq' => __( 'Albanian', 'gpt-auto-translate' ),
+                'am' => __( 'Amharic', 'gpt-auto-translate' ),
+                'ar' => __( 'Arabic', 'gpt-auto-translate' ),
+                'an' => __( 'Aragonese', 'gpt-auto-translate' ),
+                'hy' => __( 'Armenian', 'gpt-auto-translate' ),
+                'as' => __( 'Assamese', 'gpt-auto-translate' ),
+                'av' => __( 'Avaric', 'gpt-auto-translate' ),
+                'ae' => __( 'Avestan', 'gpt-auto-translate' ),
+                'ay' => __( 'Aymara', 'gpt-auto-translate' ),
+                'az' => __( 'Azerbaijani', 'gpt-auto-translate' ),
+                'bm' => __( 'Bambara', 'gpt-auto-translate' ),
+                'ba' => __( 'Bashkir', 'gpt-auto-translate' ),
+                'eu' => __( 'Basque', 'gpt-auto-translate' ),
+                'be' => __( 'Belarusian', 'gpt-auto-translate' ),
+                'bn' => __( 'Bengali', 'gpt-auto-translate' ),
+                'bi' => __( 'Bislama', 'gpt-auto-translate' ),
+                'bs' => __( 'Bosnian', 'gpt-auto-translate' ),
+                'br' => __( 'Breton', 'gpt-auto-translate' ),
+                'bg' => __( 'Bulgarian', 'gpt-auto-translate' ),
+                'my' => __( 'Burmese', 'gpt-auto-translate' ),
+                'ca' => __( 'Catalan', 'gpt-auto-translate' ), // Note: Table lists "Catalan, Valencian"
+                'ch' => __( 'Chamorro', 'gpt-auto-translate' ),
+                'ce' => __( 'Chechen', 'gpt-auto-translate' ),
+                'ny' => __( 'Chichewa', 'gpt-auto-translate' ), // Note: Table lists "Chichewa, Chewa, Nyanja"
+                'zh' => __( 'Chinese', 'gpt-auto-translate' ),
+                'cu' => __( 'Church Slavonic', 'gpt-auto-translate' ), // Note: Table lists "Church Slavonic, Old Slavonic, Old Church Slavonic"
+                'cv' => __( 'Chuvash', 'gpt-auto-translate' ),
+                'kw' => __( 'Cornish', 'gpt-auto-translate' ),
+                'co' => __( 'Corsican', 'gpt-auto-translate' ),
+                'cr' => __( 'Cree', 'gpt-auto-translate' ),
+                'hr' => __( 'Croatian', 'gpt-auto-translate' ),
+                'cs' => __( 'Czech', 'gpt-auto-translate' ),
+                'da' => __( 'Danish', 'gpt-auto-translate' ),
+                'dv' => __( 'Divehi', 'gpt-auto-translate' ), // Note: Table lists "Divehi, Dhivehi, Maldivian"
+                'nl' => __( 'Dutch', 'gpt-auto-translate' ), // Note: Table lists "Dutch, Flemish"
+                'dz' => __( 'Dzongkha', 'gpt-auto-translate' ),
+                'en' => __( 'English', 'gpt-auto-translate' ),
+                'eo' => __( 'Esperanto', 'gpt-auto-translate' ),
+                'et' => __( 'Estonian', 'gpt-auto-translate' ),
+                'ee' => __( 'Ewe', 'gpt-auto-translate' ),
+                'fo' => __( 'Faroese', 'gpt-auto-translate' ),
+                'fj' => __( 'Fijian', 'gpt-auto-translate' ),
+                'fi' => __( 'Finnish', 'gpt-auto-translate' ),
+                'fr' => __( 'French', 'gpt-auto-translate' ),
+                'fy' => __( 'Western Frisian', 'gpt-auto-translate' ),
+                'ff' => __( 'Fulah', 'gpt-auto-translate' ),
+                'gd' => __( 'Scottish Gaelic', 'gpt-auto-translate' ), // Note: Table lists "Gaelic, Scottish Gaelic"
+                'gl' => __( 'Galician', 'gpt-auto-translate' ),
+                'lg' => __( 'Ganda', 'gpt-auto-translate' ),
+                'ka' => __( 'Georgian', 'gpt-auto-translate' ),
+                'de' => __( 'German', 'gpt-auto-translate' ),
+                'el' => __( 'Greek', 'gpt-auto-translate' ), // Note: Table lists "Greek, Modern (1453–)"
+                'kl' => __( 'Kalaallisut', 'gpt-auto-translate' ), // Note: Table lists "Kalaallisut, Greenlandic"
+                'gn' => __( 'Guarani', 'gpt-auto-translate' ),
+                'gu' => __( 'Gujarati', 'gpt-auto-translate' ),
+                'ht' => __( 'Haitian', 'gpt-auto-translate' ), // Note: Table lists "Haitian, Haitian Creole"
+                'ha' => __( 'Hausa', 'gpt-auto-translate' ),
+                'he' => __( 'Hebrew', 'gpt-auto-translate' ),
+                'hz' => __( 'Herero', 'gpt-auto-translate' ),
+                'hi' => __( 'Hindi', 'gpt-auto-translate' ),
+                'ho' => __( 'Hiri Motu', 'gpt-auto-translate' ),
+                'hu' => __( 'Hungarian', 'gpt-auto-translate' ),
+                'is' => __( 'Icelandic', 'gpt-auto-translate' ),
+                'io' => __( 'Ido', 'gpt-auto-translate' ),
+                'ig' => __( 'Igbo', 'gpt-auto-translate' ),
+                'id' => __( 'Indonesian', 'gpt-auto-translate' ),
+                'ia' => __( 'Interlingua', 'gpt-auto-translate' ), // Note: Table lists "Interlingua (International Auxiliary Language Association)"
+                'ie' => __( 'Interlingue', 'gpt-auto-translate' ), // Note: Table lists "Interlingue, Occidental"
+                'iu' => __( 'Inuktitut', 'gpt-auto-translate' ),
+                'ik' => __( 'Inupiaq', 'gpt-auto-translate' ),
+                'ga' => __( 'Irish', 'gpt-auto-translate' ),
+                'it' => __( 'Italian', 'gpt-auto-translate' ),
+                'ja' => __( 'Japanese', 'gpt-auto-translate' ),
+                'jv' => __( 'Javanese', 'gpt-auto-translate' ),
+                'kn' => __( 'Kannada', 'gpt-auto-translate' ),
+                'kr' => __( 'Kanuri', 'gpt-auto-translate' ),
+                'ks' => __( 'Kashmiri', 'gpt-auto-translate' ),
+                'kk' => __( 'Kazakh', 'gpt-auto-translate' ),
+                'km' => __( 'Khmer', 'gpt-auto-translate' ), // Note: Table lists "Central Khmer"
+                'ki' => __( 'Kikuyu', 'gpt-auto-translate' ), // Note: Table lists "Kikuyu, Gikuyu"
+                'rw' => __( 'Kinyarwanda', 'gpt-auto-translate' ),
+                'ky' => __( 'Kyrgyz', 'gpt-auto-translate' ), // Note: Table lists "Kyrgyz, Kirghiz"
+                'kv' => __( 'Komi', 'gpt-auto-translate' ),
+                'kg' => __( 'Kongo', 'gpt-auto-translate' ),
+                'ko' => __( 'Korean', 'gpt-auto-translate' ),
+                'kj' => __( 'Kuanyama', 'gpt-auto-translate' ), // Note: Table lists "Kuanyama, Kwanyama"
+                'ku' => __( 'Kurdish', 'gpt-auto-translate' ),
+                'lo' => __( 'Lao', 'gpt-auto-translate' ),
+                'la' => __( 'Latin', 'gpt-auto-translate' ),
+                'lv' => __( 'Latvian', 'gpt-auto-translate' ),
+                'li' => __( 'Limburgish', 'gpt-auto-translate' ), // Note: Table lists "Limburgan, Limburger, Limburgish"
+                'ln' => __( 'Lingala', 'gpt-auto-translate' ),
+                'lt' => __( 'Lithuanian', 'gpt-auto-translate' ),
+                'lu' => __( 'Luba-Katanga', 'gpt-auto-translate' ),
+                'lb' => __( 'Luxembourgish', 'gpt-auto-translate' ), // Note: Table lists "Luxembourgish, Letzeburgesch"
+                'mk' => __( 'Macedonian', 'gpt-auto-translate' ),
+                'mg' => __( 'Malagasy', 'gpt-auto-translate' ),
+                'ms' => __( 'Malay', 'gpt-auto-translate' ),
+                'ml' => __( 'Malayalam', 'gpt-auto-translate' ),
+                'mt' => __( 'Maltese', 'gpt-auto-translate' ),
+                'gv' => __( 'Manx', 'gpt-auto-translate' ),
+                'mi' => __( 'Maori', 'gpt-auto-translate' ),
+                'mr' => __( 'Marathi', 'gpt-auto-translate' ),
+                'mh' => __( 'Marshallese', 'gpt-auto-translate' ),
+                'mn' => __( 'Mongolian', 'gpt-auto-translate' ),
+                'na' => __( 'Nauru', 'gpt-auto-translate' ),
+                'nv' => __( 'Navajo', 'gpt-auto-translate' ), // Note: Table lists "Navajo, Navaho"
+                'nd' => __( 'North Ndebele', 'gpt-auto-translate' ),
+                'nr' => __( 'South Ndebele', 'gpt-auto-translate' ),
+                'ng' => __( 'Ndonga', 'gpt-auto-translate' ),
+                'ne' => __( 'Nepali', 'gpt-auto-translate' ),
+                'no' => __( 'Norwegian', 'gpt-auto-translate' ),
+                'nb' => __( 'Norwegian Bokmål', 'gpt-auto-translate' ),
+                'nn' => __( 'Norwegian Nynorsk', 'gpt-auto-translate' ),
+                'oc' => __( 'Occitan', 'gpt-auto-translate' ),
+                'oj' => __( 'Ojibwa', 'gpt-auto-translate' ),
+                'or' => __( 'Oriya', 'gpt-auto-translate' ),
+                'om' => __( 'Oromo', 'gpt-auto-translate' ),
+                'os' => __( 'Ossetian', 'gpt-auto-translate' ), // Note: Table lists "Ossetian, Ossetic"
+                'pi' => __( 'Pali', 'gpt-auto-translate' ),
+                'ps' => __( 'Pashto', 'gpt-auto-translate' ), // Note: Table lists "Pashto, Pushto"
+                'fa' => __( 'Persian', 'gpt-auto-translate' ),
+                'pl' => __( 'Polish', 'gpt-auto-translate' ),
+                'pt' => __( 'Portuguese', 'gpt-auto-translate' ),
+                'pa' => __( 'Punjabi', 'gpt-auto-translate' ), // Note: Table lists "Punjabi, Panjabi"
+                'qu' => __( 'Quechua', 'gpt-auto-translate' ),
+                'ro' => __( 'Romanian', 'gpt-auto-translate' ), // Note: Table lists "Romanian, Moldavian, Moldovan"
+                'rm' => __( 'Romansh', 'gpt-auto-translate' ),
+                'rn' => __( 'Rundi', 'gpt-auto-translate' ),
+                'ru' => __( 'Russian', 'gpt-auto-translate' ),
+                'se' => __( 'Northern Sami', 'gpt-auto-translate' ),
+                'sm' => __( 'Samoan', 'gpt-auto-translate' ),
+                'sg' => __( 'Sango', 'gpt-auto-translate' ),
+                'sa' => __( 'Sanskrit', 'gpt-auto-translate' ),
+                'sc' => __( 'Sardinian', 'gpt-auto-translate' ),
+                'sr' => __( 'Serbian', 'gpt-auto-translate' ),
+                'sn' => __( 'Shona', 'gpt-auto-translate' ),
+                'sd' => __( 'Sindhi', 'gpt-auto-translate' ),
+                'si' => __( 'Sinhala', 'gpt-auto-translate' ), // Note: Table lists "Sinhala, Sinhalese"
+                'sk' => __( 'Slovak', 'gpt-auto-translate' ),
+                'sl' => __( 'Slovenian', 'gpt-auto-translate' ),
+                'so' => __( 'Somali', 'gpt-auto-translate' ),
+                'st' => __( 'Southern Sotho', 'gpt-auto-translate' ),
+                'es' => __( 'Spanish', 'gpt-auto-translate' ), // Note: Table lists "Spanish, Castilian"
+                'su' => __( 'Sundanese', 'gpt-auto-translate' ),
+                'sw' => __( 'Swahili', 'gpt-auto-translate' ),
+                'ss' => __( 'Swati', 'gpt-auto-translate' ),
+                'sv' => __( 'Swedish', 'gpt-auto-translate' ),
+                'tl' => __( 'Tagalog', 'gpt-auto-translate' ),
+                'ty' => __( 'Tahitian', 'gpt-auto-translate' ),
+                'tg' => __( 'Tajik', 'gpt-auto-translate' ),
+                'ta' => __( 'Tamil', 'gpt-auto-translate' ),
+                'tt' => __( 'Tatar', 'gpt-auto-translate' ),
+                'te' => __( 'Telugu', 'gpt-auto-translate' ),
+                'th' => __( 'Thai', 'gpt-auto-translate' ),
+                'bo' => __( 'Tibetan', 'gpt-auto-translate' ),
+                'ti' => __( 'Tigrinya', 'gpt-auto-translate' ),
+                'to' => __( 'Tonga', 'gpt-auto-translate' ), // Note: Table lists "Tonga (Tonga Islands)"
+                'ts' => __( 'Tsonga', 'gpt-auto-translate' ),
+                'tn' => __( 'Tswana', 'gpt-auto-translate' ),
+                'tr' => __( 'Turkish', 'gpt-auto-translate' ),
+                'tk' => __( 'Turkmen', 'gpt-auto-translate' ),
+                'tw' => __( 'Twi', 'gpt-auto-translate' ),
+                'ug' => __( 'Uighur', 'gpt-auto-translate' ), // Note: Table lists "Uighur, Uyghur"
+                'uk' => __( 'Ukrainian', 'gpt-auto-translate' ),
+                'ur' => __( 'Urdu', 'gpt-auto-translate' ),
+                'uz' => __( 'Uzbek', 'gpt-auto-translate' ),
+                've' => __( 'Venda', 'gpt-auto-translate' ),
+                'vi' => __( 'Vietnamese', 'gpt-auto-translate' ),
+                'vo' => __( 'Volapük', 'gpt-auto-translate' ),
+                'wa' => __( 'Walloon', 'gpt-auto-translate' ),
+                'cy' => __( 'Welsh', 'gpt-auto-translate' ),
+                'wo' => __( 'Wolof', 'gpt-auto-translate' ),
+                'xh' => __( 'Xhosa', 'gpt-auto-translate' ),
+                'ii' => __( 'Sichuan Yi', 'gpt-auto-translate' ), // Note: Table lists "Sichuan Yi, Nuosu"
+                'yi' => __( 'Yiddish', 'gpt-auto-translate' ),
+                'yo' => __( 'Yoruba', 'gpt-auto-translate' ),
+                'za' => __( 'Zhuang', 'gpt-auto-translate' ), // Note: Table lists "Zhuang, Chuang"
+                'zu' => __( 'Zulu', 'gpt-auto-translate' ),
             // Ajoutez d'autres codes courants si nécessaire
         ];
         return isset($common_names[$code]) ? $common_names[$code] : strtoupper($code);
@@ -737,52 +911,81 @@ final class Gpt_Auto_Translate {
 
 
                          // --- Génération du Slug (Logique spécifique Arabe) ---
-                         if ($lang_code === 'ar') {
-                             // --- Logique spécifique pour le slug Arabe via API ---
-                             $this->log_message("Attempting API-generated slug for Arabic...");
+                         $latin_languages_for_default_slug = ['es', 'fr', 'de', 'it', 'pt', 'en']; // Added 'en' for completeness, adjust if needed
+                         
+
+                         // Check if the current language is NOT one of the Latin languages specified above
+                         // For these non-Latin (or complex script) languages, we'll try the API first.
+                         if (!in_array($lang_code, $latin_languages_for_default_slug, true)) {
+
+                             $language_name = $this->get_language_name($lang_code); // Get the language name for logging/prompt
+                             $this->log_message("Attempting API-generated slug for non-Latin/complex script language: {$language_name} ({$lang_code})...");
+
                              try {
-                                 // Prompt spécifique pour un slug arabe court et propre
-                                 $slug_prompt_ar = sprintf(
-                                     "Based on the Arabic title: \"%s\"\n" .
-                                     "Generate a VERY SHORT (ideally 1-3 words), relevant, URL-friendly slug using ONLY Arabic letters and hyphens (-).\n" .
+                                 // Generalized prompt for a short, native-script slug
+                                 $slug_prompt_generalized = sprintf(
+                                     "Based on the title in %s: \"%s\"\n" .
+                                     "Generate a VERY SHORT (ideally 1-3 words), relevant, URL-friendly slug using ONLY letters/characters native to the %s language, numbers (0-9), and hyphens (-).\n" .
                                      "Rules for the slug:\n" .
-                                     "1. Use Arabic letters directly (like شريك).\n" .
+                                     "1. Use the native script directly (e.g., Cyrillic for Russian, Arabic for Arabic, Hanzi for Chinese, etc.).\n" .
                                      "2. Replace spaces ONLY with hyphens (-).\n" .
-                                     "3. Remove ALL other punctuation, symbols, English letters/numbers, or non-Arabic characters (except hyphens).\n" .
-                                     "4. Keep it concise and meaningful in Arabic.\n" .
+                                     "3. Remove ALL other punctuation, symbols, or non-native characters (like English letters if the title is not English, etc.), EXCEPT hyphens and numbers.\n" .
+                                     "4. Keep it concise and meaningful in the original language (%s).\n" .
+                                     "5. Preferably use lowercase if the script supports it (like Cyrillic), otherwise maintain native case.\n" .
                                      "Provide ONLY the final slug string, nothing else.\n" .
-                                     "Example: if the title is 'بحث عن فريق تطوير', a good slug might be 'بحث-فريق-تطوير' or 'فريق-تطوير'.",
-                                     $translated_title // Utilise le titre arabe traduit comme base
+                                     "Example (Russian title 'Моя Новая Статья'): 'моя-новая-статья' or 'новая-статья'.\n" .
+                                     "Example (Arabic title 'بحث عن فريق'): 'بحث-فريق' or 'فريق'.\n" .
+                                     "Example (Japanese title '新しい記事について'): '新しい記事' or '記事'.",
+                                     $language_name,            // Language name for context
+                                     $translated_title,         // The title in the target language
+                                     $language_name,            // For "native to the X language"
+                                     $language_name             // For "meaningful in X"
                                  );
 
-                                 $api_result_slug = $this->call_gpt_api($slug_prompt_ar, $lang_code, $api_key);
+                                 $api_result_slug = $this->call_gpt_api($slug_prompt_generalized, $lang_code, $api_key);
 
                                  if ($api_result_slug !== false && !empty(trim($api_result_slug))) {
-                                     // Nettoyage spécifique pour la réponse API Arabe
+                                     // General cleaning for the API response
                                      $cleaned_slug = trim($api_result_slug);
-                                     // Remplacer espaces multiples/etc par UN tiret
+                                     // Replace various potential separators (spaces, underscores, dots, slashes) with a single hyphen
                                      $cleaned_slug = preg_replace('/[\s_.\/\\\]+/', '-', $cleaned_slug);
-                                     // Garder UNIQUEMENT les lettres Arabes (Unicode \p{Arabic}) et les tirets
-                                     $cleaned_slug = preg_replace('/[^\p{Arabic}-]+/u', '', $cleaned_slug);
-                                     // Supprimer tirets début/fin
+                                     // Keep ONLY native letters (any script), numbers, and hyphens.
+                                     // \p{L} matches any Unicode letter character.
+                                     // \p{N} matches any Unicode number character.
+                                     // The 'u' flag is crucial for Unicode matching.
+                                     $cleaned_slug = preg_replace('/[^\p{L}\p{N}-]+/u', '', $cleaned_slug);
+                                     // Remove leading/trailing hyphens that might result from cleaning
                                      $cleaned_slug = trim($cleaned_slug, '-');
+                                     // Optionally, force lowercase IF appropriate (might be language-specific, API should ideally handle it based on prompt)
+                                     // Example for scripts where lowercase is standard:
+                                     // if (in_array($lang_code, ['ru', 'bg', 'uk', /* other Cyrillic etc. */ ])) {
+                                     //    $cleaned_slug = mb_strtolower($cleaned_slug, 'UTF-8');
+                                     // }
+                                     // For now, rely on API and general cleaning. Avoid forced lowercasing globally as it breaks some scripts.
 
                                      if (!empty($cleaned_slug)) {
                                          $translated_slug = $cleaned_slug;
-                                         $this->log_message("Generated Arabic slug via API: {$translated_slug}");
+                                         $this->log_message("Generated {$language_name} slug via API: {$translated_slug}");
                                      } else {
-                                         $this->log_message("API response for Arabic slug unusable after cleaning. Original: '{$api_result_slug}'");
+                                         $this->log_message("API response for {$language_name} slug unusable after cleaning. Original API response: '{$api_result_slug}'");
+                                         // $translated_slug remains null, will fall back to default sanitize_title later
                                      }
                                  } else {
-                                     $this->log_message("API slug generation failed or returned empty for Arabic.");
+                                     $this->log_message("API slug generation failed or returned empty for {$language_name}.");
+                                      // $translated_slug remains null, will fall back to default sanitize_title later
                                  }
                              } catch (Exception $e) {
-                                 $this->log_message("API Error during Arabic slug generation: " . $e->getMessage());
+                                 $this->log_message("API Error during {$language_name} slug generation: " . $e->getMessage());
+                                 // $translated_slug remains null, will fall back to default sanitize_title later
                              }
-                             // Si $translated_slug est encore null ici, l'API arabe a échoué, on passera au fallback général.
+                             // If $translated_slug is still null here, the API attempt failed or yielded nothing usable.
+                             // The code following this block should handle the fallback (e.g., using sanitize_title).
 
-                         } // --- Fin logique spécifique Arabe ---
+                         } // --- End non-Latin/complex script API slug logic ---
 
+
+                         // Final check and logging for the chosen slug
+                         $this->log_message("Final slug set for {$lang_code}: {$translated_slug}");
 
                          // --- Fallback / Génération standard du Slug (pour non-Arabe OU si l'API Arabe a échoué) ---
                          if (is_null($translated_slug)) {
@@ -1379,7 +1582,7 @@ final class Gpt_Auto_Translate {
         $html_system_prompt = $this->get_html_translation_system_prompt();
         $this->log_message("html_system_prompt: {$html_system_prompt}");
 
-        $meta_keys_to_translate = ['main_content', 'vision', 'faqs', 'meta_description', ]; // **LISTE FINALE**
+        $meta_keys_to_translate = ['main_content', 'vision', 'faqs', 'meta_description', 'promotion', 'slots_description', 'short_description' ]; // **LISTE FINALE**
 
         // Noms/clés des sous-champs ACF
         $acf_meta_key_subkey = 'meta_key'; // Ou 'field_640722bfc16b8'
@@ -1391,9 +1594,17 @@ final class Gpt_Auto_Translate {
             foreach ($original_acf_messages as $row_data) {
                 $meta_key = isset($row_data[$acf_meta_key_subkey]) ? $row_data[$acf_meta_key_subkey] : null;
                 $original_result = isset($row_data[$acf_result_subkey]) ? $row_data[$acf_result_subkey] : '';
-                $this->log_message("is_array: meta_key ==> {$meta_key} {$original_result}");
+                $this->log_message(" meta_key ==> {$meta_key}  original_result ==> {$original_result}");
 
-                if ($meta_key && in_array($meta_key, $meta_keys_to_translate) && !empty($original_result)) {
+                $this->log_message("DEBUG: meta_key = '" . $meta_key . "'"); // Check for quotes around it
+                $this->log_message("DEBUG: meta_keys_to_translate = " . print_r($meta_keys_to_translate, true));
+                $is_in_array = in_array($meta_key, $meta_keys_to_translate);
+                $this->log_message("DEBUG: in_array result = " . ($is_in_array ? 'TRUE' : 'FALSE'));
+
+
+                if (($meta_key && in_array($meta_key, $meta_keys_to_translate)) && !empty($original_result)) {
+                    $this->log_message("is_array: meta_key ==> {$meta_key} {$original_result}");
+
                     $content_to_translate = preg_replace('/<!--\s*(?:\/)?wp:.*?-->/s', '', $original_result);
                     $translated_text = $this->call_gpt_api($content_to_translate, $lang_code, $api_key, $html_system_prompt);
                     $this->log_message("Content: {$translated_text}");
@@ -1526,96 +1737,390 @@ final class Gpt_Auto_Translate {
          }
      }
 
-    // **** NOUVELLE MÉTHODE : Configuration de l'intégration API REST ****
-    /**
-     * Enregistre les champs ACF et les métadonnées associées auprès de l'API REST WP.
-     */
-    public function setup_rest_api_integration() {
+     // Inside the Gpt_Auto_Translate class
 
-        // Vérifier si ACF est actif (essentiel pour get_field/update_field utilisés implicitement parfois)
-        if ( ! function_exists( 'acf_register_rest_field' ) && ! function_exists('get_field') ) {
-             // Si ACF n'est pas actif, on ne peut rien faire lié à ACF.
-             // Si ACF Pro n'est pas là, on utilise register_post_meta.
-            $this->log_message("ACF not detected. Skipping ACF REST API field registration.");
-            // On pourrait quand même enregistrer les métas NON-ACF si besoin.
-            // return; // Commenté pour permettre l'enregistrement des métas non-ACF ci-dessous.
-        } else {
-             $this->log_message("Registering ACF/Meta fields for REST API.");
+    /**
+     * Registers complex ACF fields manually for the REST API using register_rest_field.
+     */
+    public function register_custom_acf_rest_fields() {
+
+        // Check if ACF core functions exist
+         if ( ! function_exists( 'get_field' ) || ! function_exists( 'update_field' ) ) {
+            $this->log_message( 'ACF core functions not found. Skipping manual ACF REST field registration.' );
+            return;
         }
 
-        // --- Récupérer les types de contenu cibles depuis les options ---
-        // Cela assure qu'on n'expose les champs que là où le plugin est censé agir.
-        $options = get_option( 'gpt_auto_translate_options' );
-        $target_post_types = isset( $options['target_post_types'] ) && is_array($options['target_post_types'])
-                               ? $options['target_post_types']
-                               : ['page']; // Fallback à 'page' si non défini
+        $options           = get_option( 'gpt_auto_translate_options' );
+        $target_post_types = isset( $options['target_post_types'] ) && is_array( $options['target_post_types'] )
+                            ? $options['target_post_types']
+                            : [];
 
-        if (empty($target_post_types)) {
-             $this->log_message("No target post types configured for REST API field registration.");
+        if ( empty( $target_post_types ) ) {
+             $this->log_message( 'No target post types configured. Skipping manual ACF REST field registration.' );
              return;
         }
-         $this->log_message("Target post types for REST registration: " . implode(', ', $target_post_types));
+        $this->log_message( 'Manual ACF REST Registration: Targeting post types: ' . implode( ', ', $target_post_types ) );
 
-        // --- Définir les champs/méta clés à enregistrer ---
-
-        // 1. Champs ACF principaux (Repeaters stockés comme tableaux sérialisés)
-        $acf_repeater_fields = [
-            'messages'          => 'array', // ou 'object' selon la complexité
-            'translation_pages' => 'array', // ou 'object'
+        $acf_fields_to_register = [
+            'messages' => [
+                'api_field_name' => 'acf_messages', // <<< RESTORE THIS
+                // Schema can be defined here OR fetched dynamically later
+                // 'schema' => $this->get_messages_repeater_schema(), // Optional: Keep schema here
+            ],
+            'translation_pages' => [
+                'api_field_name' => 'acf_translation_pages', // <<< RESTORE THIS
+                 // 'schema' => $this->get_translation_pages_repeater_schema(), // Optional: Keep schema here
+            ],
         ];
 
-        // 2. Champ ACF simple (Textarea)
-        $acf_simple_fields = [
+        // --- Pre-generate maps for known repeaters ---
+        // Cache them locally for the duration of this function call
+        $repeater_maps_cache = [];
+        foreach (array_keys($acf_fields_to_register) as $acf_field_name) {
+            $maps = $this->get_dynamic_acf_repeater_maps($acf_field_name);
+            if ($maps) {
+                 $repeater_maps_cache[$acf_field_name] = $maps;
+                 $this->log_message("Successfully generated dynamic maps for repeater: {$acf_field_name}");
+            } else {
+                 $this->log_message("Failed to generate dynamic maps for repeater: {$acf_field_name}. REST exposure might fail.");
+                 // Decide if you want to skip registration or proceed with potential errors
+            }
+        }
+
+
+        foreach ( $acf_fields_to_register as $acf_field_name => $config ) {
+            $api_field_name = $config['api_field_name'];
+             // Use the dynamically generated schema from the config
+             $schema = isset( $config['schema'] ) ? $config['schema'] : null;
+             if (is_null($schema)) {
+                 // Dynamically call the schema generation method if not directly provided
+                 $schema_method_name = 'get_' . $acf_field_name . '_repeater_schema'; // e.g., get_messages_repeater_schema
+                 if (method_exists($this, $schema_method_name)) {
+                     $schema = $this->$schema_method_name();
+                 } else {
+                     $this->log_message("Warning: Schema generation method '{$schema_method_name}' not found for '{$acf_field_name}'.");
+                     // Provide a default basic schema or skip registration
+                     $schema = ['type' => 'array', 'description' => "ACF Repeater: {$acf_field_name}"];
+                 }
+             }
+
+
+             // Check if we successfully generated maps for this specific repeater
+             if (!isset($repeater_maps_cache[$acf_field_name])) {
+                  $this->log_message("Skipping REST registration for '{$api_field_name}' (ACF: '{$acf_field_name}') because dynamic maps could not be generated.");
+                  continue; // Skip registering this field if maps failed
+             }
+
+             // Pass the SPECIFIC maps for this repeater into the callbacks
+             $current_key_to_name_map = $repeater_maps_cache[$acf_field_name]['key_to_name'];
+             $current_name_to_key_map = $repeater_maps_cache[$acf_field_name]['name_to_key'];
+
+            register_rest_field(
+                $target_post_types,
+                $api_field_name,
+                [
+                    // --- GET Callback ---
+                    'get_callback' => function( $object, $field_name_from_api, $request ) use ( $acf_field_name, $current_key_to_name_map ) { // Pass key_to_name map
+                        if ( isset( $object['id'] ) && function_exists( 'get_field' ) ) {
+                            $raw_data = get_field( $acf_field_name, $object['id'], false );
+
+                             if ( is_array( $raw_data ) && ! empty( $raw_data ) ) {
+                                $processed_rows = [];
+                                foreach ( $raw_data as $raw_row ) {
+                                     if ( ! is_array( $raw_row ) ) continue;
+                                    $processed_row = [];
+                                    foreach ( $raw_row as $field_key => $field_value ) {
+                                         // Use the dynamically generated map passed via 'use'
+                                        if ( isset( $current_key_to_name_map[$field_key] ) ) {
+                                            $field_name = $current_key_to_name_map[$field_key];
+                                            // Special Handling / Type Casting (keep this logic)
+                                            if ( $field_name === 'gpt' ) {
+                                                $processed_row[$field_name] = (bool) intval($field_value);
+                                            } else {
+                                                $processed_row[$field_name] = $field_value;
+                                            }
+                                        }
+                                    }
+                                    if (!empty($processed_row)) $processed_rows[] = $processed_row;
+                                }
+                                return $processed_rows;
+                            } elseif (empty($raw_data)) {
+                                 return [];
+                            } else {
+                                 return $raw_data; // Fallback
+                            }
+                        }
+                        return null;
+                    },
+
+                    // --- UPDATE Callback ---
+                    'update_callback' => function( $value, $object, $field_name_from_api ) use ( $acf_field_name, $current_name_to_key_map ) { // Pass name_to_key map
+                        if ( function_exists( 'update_field' ) ) {
+
+                            if ( ! is_array( $value ) ) {
+                                 if ( is_null( $value ) || ( is_array( $value ) && empty( $value ) ) ) {
+                                     $value_to_save = $value;
+                                 } else {
+                                     return new WP_Error( /* ... invalid data ... */ );
+                                 }
+                            } else {
+                                $value_to_save = [];
+                                foreach ($value as $row_with_names) {
+                                     if (!is_array($row_with_names)) continue;
+                                    $row_with_keys = [];
+                                    foreach ($row_with_names as $field_name => $field_value) {
+                                         // Use the dynamically generated map passed via 'use'
+                                        if (isset($current_name_to_key_map[$field_name])) {
+                                            $field_key = $current_name_to_key_map[$field_name];
+                                             // Reverse Type Casting (keep this logic)
+                                            if ($field_name === 'gpt' && is_bool($field_value)) {
+                                                $row_with_keys[$field_key] = $field_value ? '1' : '0';
+                                            } else {
+                                                 $row_with_keys[$field_key] = $field_value;
+                                            }
+                                        }
+                                    }
+                                     if (!empty($row_with_keys)) $value_to_save[] = $row_with_keys;
+                                }
+                            }
+
+                            $result = update_field( $acf_field_name, $value_to_save, $object->ID );
+                            // ... error/result check ...
+                            return true;
+                        }
+                        return new WP_Error( /* ... ACF missing ... */ );
+                    },
+
+                    // --- SCHEMA ---
+                    'schema' => $schema, // Use the schema fetched/generated earlier
+
+                    // --- PERMISSION Callback ---
+                     'permission_callback' => function( $request ) { /* ... unchanged ... */ },
+                ]
+            );
+             $this->log_message( "Registered REST field '{$api_field_name}' (for ACF '{$acf_field_name}') using dynamic maps for post types: " . implode( ', ', $target_post_types ) );
+
+        } // End foreach $acf_fields_to_register
+
+        // --- Register standard meta fields ---
+        $this->register_standard_rest_meta( $target_post_types, $options );
+
+    } // End register_custom_acf_rest_fields
+
+    /**
+     * Helper function to register standard WP meta fields (non-ACF repeaters)
+     */
+    private function register_standard_rest_meta( $target_post_types, $options ) {
+        // --- Define standard meta keys ---
+        $standard_meta_fields = [
+            'finder_keys_meta' => 'array',
+            // If finder_keys (textarea) is NOT handled by ACF PRO (or you prefer manual):
             'finder_keys' => 'string',
         ];
 
-        // 3. Méta WP standard (stockée comme tableau sérialisé)
-        $standard_meta_fields = [
-            'finder_keys_meta' => 'array',
-        ];
-
-        // 4. Méta WP dynamiques pour les traductions ([lang]_messages_001)
         $target_languages = isset($options['target_languages']) && is_array($options['target_languages'])
-                              ? $options['target_languages']
-                              : [];
+                            ? $options['target_languages']
+                            : [];
         $dynamic_translation_meta_keys = [];
         foreach ($target_languages as $lang_code) {
-            $dynamic_translation_meta_keys[$lang_code . '_messages_001'] = 'object'; // ou 'array'
+            $dynamic_translation_meta_keys[$lang_code . '_messages_001'] = 'object'; // or 'array'
         }
-         $this->log_message("Dynamic translation meta keys to register: " . implode(', ', array_keys($dynamic_translation_meta_keys)));
-
-
-        // --- Enregistrement effectif via register_post_meta ---
-        // Cette fonction gère l'ajout à la clé 'meta' dans l'API REST
 
         $all_meta_to_register = array_merge(
-            $acf_repeater_fields,
-            $acf_simple_fields,
             $standard_meta_fields,
             $dynamic_translation_meta_keys
         );
 
         foreach ($target_post_types as $post_type) {
+            $post_type_object = get_post_type_object( $post_type );
+            if ( ! $post_type_object ) continue; // Skip if post type doesn't exist
+
             foreach ($all_meta_to_register as $meta_key => $meta_type) {
                 register_post_meta( $post_type, $meta_key, [
-                    'show_in_rest' => true,          // <-- La clé magique !
-                    'single'       => true,          // On assume une seule valeur (sérialisée si tableau/objet)
-                    'type'         => $meta_type,    // Type de données attendu (string, boolean, integer, number, array, object)
-                    'auth_callback' => function() { // Qui peut mettre à jour ?
-                        // Vérifie si l'utilisateur actuel peut modifier les posts de ce type
-                        // Note: le contexte du post spécifique n'est pas dispo ici facilement.
-                        // Une vérification plus fine se ferait avec register_rest_field et son permission_callback.
-                        // Ceci est une protection de base.
-                        $post_type_object = get_post_type_object( $post_type );
+                    'show_in_rest' => true,
+                    'single'       => true,
+                    'type'         => $meta_type,
+                    'auth_callback' => function() use ( $post_type_object ) {
+                        // Check edit capability for the post type
                         return current_user_can( $post_type_object->cap->edit_posts );
                     }
-                    // 'sanitize_callback' => '...', // Optionnel: Fonction pour nettoyer la donnée avant sauvegarde
-                    // 'schema' => [...] // Optionnel: Décrire la structure pour les types array/object
+                    // Optional: Add sanitize_callback or specific schema if needed
                 ]);
-                $this->log_message("Registered meta key '{$meta_key}' for post type '{$post_type}' in REST API.");
+                $this->log_message("Registered WP meta key '{$meta_key}' for post type '{$post_type}' via register_post_meta.");
+            }
+        }
+    }
+
+
+    /**
+     * Defines the REST API schema for the 'messages' ACF Repeater field.
+     *
+     * @return array The schema definition.
+     */
+    private function get_messages_repeater_schema() {
+        return [
+            'description' => __( 'ACF Repeater field containing AI commands and results.', 'gpt-auto-translate' ),
+            'type'        => 'array',
+            'context'     => [ 'view', 'edit' ],
+            'items'       => [
+                'type'       => 'object',
+                'properties' => [
+                    // Use field names as keys now
+                    'role' => [
+                        'description' => __( 'Role for the AI message (e.g., user, system, assistant).', 'gpt-auto-translate' ),
+                        'type'        => 'string', // Raw value is string
+                        'required'    => true,
+                        'context'     => [ 'view', 'edit' ],
+                    ],
+                    'gpt' => [
+                        'description' => __( 'Indicates if GPT should process this command.', 'gpt-auto-translate' ),
+                        'type'        => 'boolean', // We are casting to boolean in the get_callback
+                        'required'    => false, // Based on ACF default
+                        'context'     => [ 'view', 'edit' ],
+                    ],
+                    'content' => [
+                        'description' => __( 'The command or prompt text (textarea).', 'gpt-auto-translate' ),
+                        'type'        => 'string', // Raw value is string
+                        'required'    => true,
+                        'context'     => [ 'view', 'edit' ],
+                    ],
+                    'meta_key' => [
+                        'description' => __( 'Target meta key for the result (e.g., main_content).', 'gpt-auto-translate' ),
+                        'type'        => 'string', // Raw value is string
+                        'required'    => true,
+                        'context'     => [ 'view', 'edit' ],
+                    ],
+                    'status' => [
+                        'description' => __( 'Processing status of this command.', 'gpt-auto-translate' ),
+                        'type'        => 'string', // Raw value is string
+                        'required'    => true,
+                        'enum'        => ['pending', 'completed', 'failed'],
+                        'context'     => [ 'view', 'edit' ],
+                    ],
+                    'result' => [
+                        'description' => __( 'The generated content (raw HTML from WYSIWYG).', 'gpt-auto-translate' ),
+                        'type'        => 'string', // Raw value is HTML string
+                        'required'    => false,
+                        'context'     => [ 'view', 'edit' ],
+                    ],
+                    'processed_date' => [
+                        'description' => __( 'Timestamp when the command was processed.', 'gpt-auto-translate' ),
+                        'type'        => 'string', // Raw value is string
+                         // Consider adding 'format': 'date-time' if it's consistently ISO 8601
+                        'required'    => false,
+                        'context'     => [ 'view', 'edit' ],
+                        // 'readonly'   => true, // Could make it read-only if desired
+                    ],
+                ],
+                 // Optionally add 'required' array listing mandatory field names for the object
+                 // 'required' => ['role', 'content', 'meta_key', 'status'],
+            ],
+        ];
+    }
+
+
+    /**
+     * Defines the REST API schema for the 'translation_pages' ACF Repeater field.
+     *
+     * @return array The schema definition.
+     */
+    private function get_translation_pages_repeater_schema() {
+        return [
+            'description' => __( 'ACF Repeater field storing links to translated versions.', 'gpt-auto-translate' ),
+            'type'        => 'array',
+            'context'     => [ 'view', 'edit' ],
+            'items'       => [
+                'type'       => 'object',
+                'properties' => [
+                     // Use field names as keys now
+                    'language' => [
+                        'description' => __( 'Target language code (alpha-2).', 'gpt-auto-translate' ),
+                        'type'        => 'string', // Raw value is string
+                        'required'    => false,
+                        'context'     => [ 'view', 'edit' ],
+                    ],
+                    'title' => [
+                        'description' => __( 'Title of the translated page.', 'gpt-auto-translate' ),
+                        'type'        => 'string', // Raw value is string
+                        'required'    => false,
+                        'context'     => [ 'view', 'edit' ],
+                    ],
+                    'slug' => [
+                        'description' => __( 'Slug of the translated page (often points to original).', 'gpt-auto-translate' ),
+                        'type'        => 'string', // Raw value is string
+                        'required'    => false,
+                        'context'     => [ 'view', 'edit' ],
+                    ],
+                ],
+                // Optionally add 'required' array listing mandatory field names for the object
+            ],
+        ];
+    }
+
+
+    /**
+     * Dynamically retrieves the key <=> name maps for an ACF repeater's sub-fields.
+     *
+     * @param string $repeater_field_name The name of the parent repeater field (e.g., 'messages').
+     * @return array|null ['key_to_name' => [...], 'name_to_key' => [...]] or null on failure.
+     */
+    private function get_dynamic_acf_repeater_maps( $repeater_field_name ) {
+        if ( ! function_exists( 'acf_get_field' ) ) {
+             $this->log_message("Error: acf_get_field() function not found. Cannot build dynamic maps.");
+             return null; // ACF Pro likely needed or core function unavailable
+        }
+
+        // Try getting the field object using the NAME.
+        // Note: acf_get_field() is often preferred over get_field_object() for getting definitions.
+        $repeater_field_object = acf_get_field( $repeater_field_name );
+
+        if ( ! $repeater_field_object || empty( $repeater_field_object['sub_fields'] ) || ! is_array( $repeater_field_object['sub_fields'] ) ) {
+            // Fallback: Sometimes the field object might be associated with a specific post ID if contexts vary.
+            // This is less common for just getting the definition, but let's try finding *any* post
+            // of a target type to potentially get the field object if the global lookup fails.
+             $options           = get_option( 'gpt_auto_translate_options' );
+             $target_post_types = isset( $options['target_post_types'] ) && is_array( $options['target_post_types'] ) ? $options['target_post_types'] : ['page']; // Default 'page' maybe?
+             if (!empty($target_post_types)) {
+                 $args = [
+                    'post_type'      => $target_post_types[0], // Just check the first target type
+                    'posts_per_page' => 1,
+                    'fields'         => 'ids',
+                    'post_status'    => 'any', // Find any post
+                 ];
+                 $posts = get_posts($args);
+                 if (!empty($posts)) {
+                    $repeater_field_object = get_field_object($repeater_field_name, $posts[0], ['load_value' => false]); // Don't need value
+                 }
+             }
+        }
+
+
+        // Final check after potential fallback
+        if ( ! $repeater_field_object || empty( $repeater_field_object['sub_fields'] ) || ! is_array( $repeater_field_object['sub_fields'] ) ) {
+            $this->log_message( "Error: Could not retrieve valid ACF field object or sub-fields for repeater '{$repeater_field_name}'." );
+             return null;
+        }
+
+        $key_to_name_map = [];
+        $name_to_key_map = [];
+
+        foreach ( $repeater_field_object['sub_fields'] as $sub_field ) {
+            if ( isset( $sub_field['key'], $sub_field['name'] ) ) {
+                $key_to_name_map[ $sub_field['key'] ] = $sub_field['name'];
+                $name_to_key_map[ $sub_field['name'] ] = $sub_field['key'];
             }
         }
 
+        if ( empty( $key_to_name_map ) ) {
+            $this->log_message("Warning: Generated empty key/name maps for repeater '{$repeater_field_name}'. Check ACF configuration.");
+            return null;
+        }
+
+        return [
+            'key_to_name' => $key_to_name_map,
+            'name_to_key' => $name_to_key_map,
+        ];
+    }
 
 }
 
