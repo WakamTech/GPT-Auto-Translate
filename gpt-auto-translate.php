@@ -1582,7 +1582,7 @@ final class Gpt_Auto_Translate {
         $html_system_prompt = $this->get_html_translation_system_prompt();
         $this->log_message("html_system_prompt: {$html_system_prompt}");
 
-        $meta_keys_to_translate = ['main_content', 'vision', 'faqs', 'meta_description', 'promotion', 'slots_description', 'short_description' ]; // **LISTE FINALE**
+        $meta_keys_to_translate = ['main_content', 'vision', 'faqs', 'meta_description', 'promotion', 'slots_description', 'short_description', 'page_title', 'introduction', 'playing_with_crypto', 'contact_details', 'faqs_1', 'faqs_2', 'faqs_3', 'faqs_4', 'faqs_5', 'faqs_6', 'glossary_1', 'glossary_2', 'glossary_3', 'glossary_test', 'news_1', 'news_2', 'news_3', 'terms' ]; // **LISTE FINALE**
 
         // Noms/clés des sous-champs ACF
         $acf_meta_key_subkey = 'meta_key'; // Ou 'field_640722bfc16b8'
